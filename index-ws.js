@@ -13,6 +13,10 @@ server.listen(3000, function() {
 });
 
 process.on('SIGINT', () => {
+  console.log('sigint');
+  wss.clients.forEach((client) => {
+    client.close();
+  });
   server.close(() => {
     shutdownDB();
   });
